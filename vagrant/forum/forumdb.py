@@ -2,14 +2,26 @@
 
 import datetime
 
-POSTS = [("This is the first post.", datetime.datetime.now())]
+# POSTS = [("This is the first post.", datetime.datetime.now())]
 
-def get_posts():
+## Database connection
+DB = []
+
+# Get posts from database.
+def GetALLPosts():
   """Return all posts from the 'database', most recent first."""
-  return reversed(POSTS)
+  DB = psycopg2.connect("dbname=forum")
+  posts = [{'content': str(row[1]),
+  'time': str(row[0])} for row in DB]
+  posts.sort(key=lambda row: row['time'], reverse = True)
+  return posts
+#  return reversed(POSTS)
 
-def add_post(content):
+# Add a post to the database.
+def AddPost(content):
   """Add a post to the 'database' with the current timestamp."""
-  POSTS.append((content, datetime.datetime.now()))
+  t = time.strftime('%', time.localtime())
+  DB.append((t, content))
+ # POSTS.append((content, datetime.datetime.now()))
 
 
