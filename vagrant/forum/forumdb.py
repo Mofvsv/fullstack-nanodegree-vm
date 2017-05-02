@@ -2,6 +2,8 @@
 
 import psycopg2
 
+#### '); delete from posts; -- #### security bug### SQL injection
+
 # Get posts from database.
 def GetAllPosts():
   DB = psycopg2.connect("dbname=forum")
@@ -20,14 +22,6 @@ def AddPost(content):
   DB.commit()
   DB.close()
   
-
-
-
-
-
-
-
-
 
 ##import datetime
 # POSTS = [("This is the first post.", datetime.datetime.now())]
